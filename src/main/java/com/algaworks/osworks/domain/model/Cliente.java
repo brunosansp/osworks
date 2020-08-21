@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
@@ -14,12 +17,16 @@ public class Cliente {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
+	@Size(max = 60)
+	@NotBlank
 	private String nome;
 	
-	@NotNull
+	@Size(max = 255)
+	@NotBlank @Email
 	private String email;
 	
+	@Size(max = 20)
+	@NotBlank
 	@Column(name = "telefone")
 	private String telefone;
 	public Long getId() {
