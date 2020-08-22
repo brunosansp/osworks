@@ -17,7 +17,7 @@ public class Cliente {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Size(max = 60)
+	@Size(min = 10, max = 60)
 	@NotBlank
 	private String nome;
 	
