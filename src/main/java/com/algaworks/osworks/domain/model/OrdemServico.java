@@ -1,7 +1,6 @@
 package com.algaworks.osworks.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 import javax.persistence.Entity;
@@ -11,42 +10,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
-
-import com.algaworks.osworks.domain.ValidationGroups;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 @Entity
 public class OrdemServico {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Valid
-	@ConvertGroup(from = Default.class, to =  ValidationGroups.ClienteId.class)
-	@NotNull
+
 	@ManyToOne
 	private Cliente cliente;
-	
-	@NotBlank
+
 	private String descricao;
-	
-	@NotNull
+
 	private BigDecimal preco;
-	
+
 	@Enumerated(EnumType.STRING)
-	@JsonProperty(access = Access.READ_ONLY)
 	private StatusOrdemServico status;
-	
-	@JsonProperty(access = Access.READ_ONLY)
+
 	private OffsetDateTime dataAbertura;
-	
-	@JsonProperty(access = Access.READ_ONLY)
+
 	private OffsetDateTime dataFinalizacao;
 
 	public Long getId() {
