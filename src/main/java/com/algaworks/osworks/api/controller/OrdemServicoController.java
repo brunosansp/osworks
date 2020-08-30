@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.osworks.api.model.OrdemServicoInput;
 import com.algaworks.osworks.api.model.OrdemServicoModel;
 import com.algaworks.osworks.domain.model.OrdemServico;
-import com.algaworks.osworks.domain.model.OrdemServicoRepository;
+import com.algaworks.osworks.domain.repository.OrdemServicoRepository;
 import com.algaworks.osworks.domain.service.GestaoOrdemServicoService;
 
 @RestController
@@ -59,9 +60,14 @@ public class OrdemServicoController {
 
 		return ResponseEntity.notFound().build();
 	}
+	
+	@PutMapping("/{ordemServicoId}/finalizacao")
+	@ResponseStatus(HttpStatus.OK)
+	public void finalizar(@PathVariable Long ordemServicoId) {
+		gestaoOrdemServico.finalizar(ordemServicoId);
+	}
 
-	// Refatorando
-	private OrdemServicoModel toModel(OrdemServico ordemServico) {
+ 	private OrdemServicoModel toModel(OrdemServico ordemServico) {
 		return modelMapper.map(ordemServico, OrdemServicoModel.class);
 	}
 
